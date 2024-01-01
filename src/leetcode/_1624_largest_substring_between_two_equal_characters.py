@@ -1,19 +1,14 @@
-import collections
-
-
 class Solution:
     def maxLengthBetweenEqualCharacters(self, s: str) -> int:
-        countMap = collections.defaultdict(list)
-        for i in range(len(s)):
-            countMap[s[i]].append(i)
-
+        first_index = {}
         result = -1
-        for count in countMap:
-            position_arr = countMap[count]
-            if len(position_arr) > 1:
-                result = max(result, position_arr[-1] - position_arr[0] - 1)
+        for i in range(len(s)):
+            if s[i] in first_index:
+                result = max(result, i - first_index[s[i]] - 1)
+            else:
+                first_index[s[i]] = i
         return result
 
 tmp = Solution()
-res = tmp.maxLengthBetweenEqualCharacters("mgntdygtxrvxjnwksqhxuxtrv")
+res = tmp.maxLengthBetweenEqualCharacters("abvbar")
 print(res)
